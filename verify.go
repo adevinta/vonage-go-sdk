@@ -59,6 +59,10 @@ func (client *VerifyClient) Request(number string, brand string, opts VerifyOpts
 	// set up and then parse the options
 	verifyOpts := verify.VerifyRequestOpts{}
 
+	if opts.PinExpiry != 0 {
+		verifyOpts.PinExpiry = optional.NewInt32(opts.PinExpiry)
+	}
+
 	if opts.CodeLength != 0 {
 		verifyOpts.CodeLength = optional.NewInt32(opts.CodeLength)
 	}
