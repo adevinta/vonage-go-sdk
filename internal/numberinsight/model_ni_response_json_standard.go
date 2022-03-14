@@ -9,6 +9,7 @@
  */
 
 package numberinsight
+
 // NiResponseJsonStandard struct for NiResponseJsonStandard
 type NiResponseJsonStandard struct {
 	Status NiBasicStatus `json:"status,omitempty"`
@@ -38,7 +39,7 @@ type NiResponseJsonStandard struct {
 	OriginalCarrier  NiInitialCarrierProperties `json:"original_carrier,omitempty"`
 	// If the user has changed carrier for `number`. The assumed status means that the information supplier has replied to the request but has not said explicitly that the number is ported.
 	Ported         string           `json:"ported,omitempty"`
-	Roaming        NiRoaming        `json:"roaming,omitempty"`
+	Roaming        NiRoaming        `json:"-"`
 	CallerIdentity NiCallerIdentity `json:"caller_identity,omitempty"`
 	// Full name of the person or business who owns the phone number. `unknown` if this information is not available. This parameter is only present if `cnam` had a value of `true` within the request.
 	CallerName string `json:"caller_name,omitempty"`
