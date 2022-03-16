@@ -6,7 +6,7 @@ import (
 	"io/ioutil"
 
 	"github.com/antihax/optional"
-	"github.com/vonage/vonage-go-sdk/internal/sms"
+	"github.com/vonage/vonage-go-sdk/pkg/sms"
 )
 
 // SMSClient for working with the SMS API
