@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 
 	"github.com/antihax/optional"
-	"github.com/vonage/vonage-go-sdk/internal/number"
+	"github.com/vonage/vonage-go-sdk/pkg/number"
 )
 
 // NumbersClient for working with the Numbers API

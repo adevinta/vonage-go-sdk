@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/antihax/optional"
-	"github.com/vonage/vonage-go-sdk/internal/numberinsight"
+	"github.com/vonage/vonage-go-sdk/pkg/numberinsight"
 )
 
 // NumberInsightClient for working with the NumberInsight API
