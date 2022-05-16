@@ -63,6 +63,10 @@ func (client *VerifyClient) Request(number string, brand string, opts VerifyOpts
 		verifyOpts.PinExpiry = optional.NewInt32(opts.PinExpiry)
 	}
 
+	if opts.NextEventWait != 0 {
+		verifyOpts.NextEventWait = optional.NewInt32(opts.NextEventWait)
+	}
+
 	if opts.CodeLength != 0 {
 		verifyOpts.CodeLength = optional.NewInt32(opts.CodeLength)
 	}
