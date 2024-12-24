@@ -12,10 +12,10 @@ package verify
 
 import (
 	"bytes"
-	_context "context"
+	"context"
 	"io"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"net/http"
+	"net/url"
 	"reflect"
 	"strings"
 
@@ -24,7 +24,7 @@ import (
 
 // Linger please
 var (
-	_ _context.Context
+	_ context.Context
 )
 
 // DefaultApiService DefaultApi service
@@ -38,7 +38,7 @@ type VerifyCheckOpts struct {
 /*
 VerifyCheck Verify Check
 Use Verify check to confirm that the PIN you received from your user matches the one sent by Nexmo in your Verify request.  1. Send the verification &#x60;code&#x60; that your user supplied, with the corresponding &#x60;request_id&#x60; from the Verify request. 2. Check the &#x60;status&#x60; of the response to determine if the code the user supplied matches the one sent by Nexmo.  *Note that this endpoint is available by &#x60;GET&#x60; request as well as &#x60;POST&#x60;.*
-  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
   - @param format The response format.
   - @param apiKey You can find your API key in your [account dashboard](https://dashboard.nexmo.com)
   - @param apiSecret You can find your API secret in your [account dashboard](https://dashboard.nexmo.com)
@@ -49,9 +49,9 @@ Use Verify check to confirm that the PIN you received from your user matches the
 
 @return CheckResponse
 */
-func (a *DefaultApiService) VerifyCheck(ctx _context.Context, format string, apiKey string, apiSecret string, requestId string, code string, localVarOptionals *VerifyCheckOpts) (CheckResponse, *_nethttp.Response, error) {
+func (a *DefaultApiService) VerifyCheck(ctx context.Context, format string, apiKey string, apiSecret string, requestId string, code string, localVarOptionals *VerifyCheckOpts) (CheckResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
@@ -61,11 +61,11 @@ func (a *DefaultApiService) VerifyCheck(ctx _context.Context, format string, api
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/check/{format}"
-	localVarPath = strings.Replace(localVarPath, "{"+"format"+"}", _neturl.QueryEscape(parameterToString(format, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"format"+"}", url.QueryEscape(parameterToString(format, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if strlen(requestId) > 32 {
 		return localVarReturnValue, nil, reportError("requestId must have less than 32 elements")
 	}
@@ -143,7 +143,7 @@ func (a *DefaultApiService) VerifyCheck(ctx _context.Context, format string, api
 /*
 VerifyControl Verify Control
 Control the progress of your Verify requests. To cancel an existing Verify request, or to trigger the next verification event:   1. Send a Verify control request with the appropriate command (&#x60;cmd&#x60;) for what you want to achieve.  2. Check the &#x60;status&#x60; in the response.   *Note that this endpoint is available by &#x60;GET&#x60; request as well as &#x60;POST&#x60;.*
-  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
   - @param format The response format.
   - @param apiKey You can find your API key in your [account dashboard](https://dashboard.nexmo.com)
   - @param apiSecret You can find your API secret in your [account dashboard](https://dashboard.nexmo.com)
@@ -152,9 +152,9 @@ Control the progress of your Verify requests. To cancel an existing Verify reque
 
 @return ControlResponse
 */
-func (a *DefaultApiService) VerifyControl(ctx _context.Context, format string, apiKey string, apiSecret string, requestId string, cmd string) (ControlResponse, *_nethttp.Response, error) {
+func (a *DefaultApiService) VerifyControl(ctx context.Context, format string, apiKey string, apiSecret string, requestId string, cmd string) (ControlResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
@@ -164,11 +164,11 @@ func (a *DefaultApiService) VerifyControl(ctx _context.Context, format string, a
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/control/{format}"
-	localVarPath = strings.Replace(localVarPath, "{"+"format"+"}", _neturl.QueryEscape(parameterToString(format, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"format"+"}", url.QueryEscape(parameterToString(format, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/x-www-form-urlencoded"}
@@ -245,7 +245,7 @@ type VerifyRequestOpts struct {
 /*
 VerifyRequest Request a Verification
 Use Verify request to generate and send a PIN to your user:  1. Create a request to send a verification code to your user.  2. Check the &#x60;status&#x60; field in the response to ensure that your request was successful (zero is success).  3. Use the &#x60;request_id&#x60; field in the response for the Verify check.  *Note that this endpoint is available by &#x60;GET&#x60; request as well as &#x60;POST&#x60;.*
-  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
   - @param format The response format.
   - @param apiKey You can find your API key in your [account dashboard](https://dashboard.nexmo.com)
   - @param apiSecret You can find your API secret in your [account dashboard](https://dashboard.nexmo.com)
@@ -262,9 +262,9 @@ Use Verify request to generate and send a PIN to your user:  1. Create a request
 
 @return RequestResponse
 */
-func (a *DefaultApiService) VerifyRequest(ctx _context.Context, format string, apiKey string, apiSecret string, number string, brand string, localVarOptionals *VerifyRequestOpts) (RequestResponse, *_nethttp.Response, error) {
+func (a *DefaultApiService) VerifyRequest(ctx context.Context, format string, apiKey string, apiSecret string, number string, brand string, localVarOptionals *VerifyRequestOpts) (RequestResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
@@ -274,11 +274,11 @@ func (a *DefaultApiService) VerifyRequest(ctx _context.Context, format string, a
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/{format}"
-	localVarPath = strings.Replace(localVarPath, "{"+"format"+"}", _neturl.QueryEscape(parameterToString(format, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"format"+"}", url.QueryEscape(parameterToString(format, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if strlen(brand) > 18 {
 		return localVarReturnValue, nil, reportError("brand must have less than 18 elements")
 	}
@@ -374,7 +374,7 @@ type VerifyRequestWithPSD2Opts struct {
 /*
 VerifyRequestWithPSD2 PSD2 (Payment Services Directive 2) Request
 Use Verify request to generate and send a PIN to your user to authorize a payment: 1. Create a request to send a verification code to your user. 2. Check the &#x60;status&#x60; field in the response to ensure that your request was successful (zero is success). 3. Use the &#x60;request_id&#x60; field in the response for the Verify check. (Please note that XML format is not supported for the Payment Services Directive endpoint at this time.)
-  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
   - @param format The response format.
   - @param apiKey You can find your API key in your [account dashboard](https://dashboard.nexmo.com)
   - @param apiSecret You can find your API secret in your [account dashboard](https://dashboard.nexmo.com)
@@ -391,9 +391,9 @@ Use Verify request to generate and send a PIN to your user to authorize a paymen
 
 @return RequestResponse
 */
-func (a *DefaultApiService) VerifyRequestWithPSD2(ctx _context.Context, format string, apiKey string, apiSecret string, number string, payee string, amount float32, localVarOptionals *VerifyRequestWithPSD2Opts) (RequestResponse, *_nethttp.Response, error) {
+func (a *DefaultApiService) VerifyRequestWithPSD2(ctx context.Context, format string, apiKey string, apiSecret string, number string, payee string, amount float32, localVarOptionals *VerifyRequestWithPSD2Opts) (RequestResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
@@ -403,11 +403,11 @@ func (a *DefaultApiService) VerifyRequestWithPSD2(ctx _context.Context, format s
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/psd2/{format}"
-	localVarPath = strings.Replace(localVarPath, "{"+"format"+"}", _neturl.QueryEscape(parameterToString(format, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"format"+"}", url.QueryEscape(parameterToString(format, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if strlen(payee) > 18 {
 		return localVarReturnValue, nil, reportError("payee must have less than 18 elements")
 	}
@@ -501,7 +501,7 @@ type VerifySearchOpts struct {
 /*
 VerifySearch Verify Search
 Use Verify search to check the status of past or current verification requests:  1. Send a Verify search request containing the &#x60;request_id&#x60;s of the verification requests you are interested in. 2. Use the &#x60;status&#x60; of each verification request in the &#x60;checks&#x60; array of the response object to determine the outcome.  *Note that this endpoint is available by &#x60;POST&#x60; request as well as &#x60;GET&#x60;.*
-  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
   - @param format The response format.
   - @param apiKey
   - @param apiSecret
@@ -511,9 +511,9 @@ Use Verify search to check the status of past or current verification requests: 
 
 @return SearchResponse
 */
-func (a *DefaultApiService) VerifySearch(ctx _context.Context, format string, apiKey string, apiSecret string, localVarOptionals *VerifySearchOpts) (SearchResponse, *_nethttp.Response, error) {
+func (a *DefaultApiService) VerifySearch(ctx context.Context, format string, apiKey string, apiSecret string, localVarOptionals *VerifySearchOpts) (SearchResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
@@ -523,11 +523,11 @@ func (a *DefaultApiService) VerifySearch(ctx _context.Context, format string, ap
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/search/{format}"
-	localVarPath = strings.Replace(localVarPath, "{"+"format"+"}", _neturl.QueryEscape(parameterToString(format, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"format"+"}", url.QueryEscape(parameterToString(format, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	localVarQueryParams.Add("api_key", parameterToString(apiKey, ""))
 	localVarQueryParams.Add("api_secret", parameterToString(apiSecret, ""))

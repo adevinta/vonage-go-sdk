@@ -11,10 +11,10 @@
 package voice
 
 import (
-	_context "context"
+	"context"
 	"io"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"net/http"
+	"net/url"
 	"strings"
 
 	"github.com/antihax/optional"
@@ -22,7 +22,7 @@ import (
 
 // Linger please
 var (
-	_ _context.Context
+	_ context.Context
 )
 
 // PlayTTSApiService PlayTTSApi service
@@ -36,16 +36,16 @@ type StartTalkOpts struct {
 /*
 StartTalk Play text to speech into a call
 Play text to speech into a call
-  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
   - @param uuid UUID of the Call Leg
   - @param optional nil or *StartTalkOpts - Optional Parameters:
   - @param "StartTalkRequest" (optional.Interface of StartTalkRequest) -  Action to perform
 
 @return StartTalkResponse
 */
-func (a *PlayTTSApiService) StartTalk(ctx _context.Context, uuid string, localVarOptionals *StartTalkOpts) (StartTalkResponse, *_nethttp.Response, error) {
+func (a *PlayTTSApiService) StartTalk(ctx context.Context, uuid string, localVarOptionals *StartTalkOpts) (StartTalkResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPut
+		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
@@ -55,11 +55,11 @@ func (a *PlayTTSApiService) StartTalk(ctx _context.Context, uuid string, localVa
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/{uuid}/talk"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.QueryEscape(parameterToString(uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.QueryEscape(parameterToString(uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -126,14 +126,14 @@ func (a *PlayTTSApiService) StartTalk(ctx _context.Context, uuid string, localVa
 /*
 StopTalk Stop text to speech in a call
 Stop text to speech in a call
-  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
   - @param uuid UUID of the Call Leg
 
 @return StopTalkResponse
 */
-func (a *PlayTTSApiService) StopTalk(ctx _context.Context, uuid string) (StopTalkResponse, *_nethttp.Response, error) {
+func (a *PlayTTSApiService) StopTalk(ctx context.Context, uuid string) (StopTalkResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
@@ -143,11 +143,11 @@ func (a *PlayTTSApiService) StopTalk(ctx _context.Context, uuid string) (StopTal
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/{uuid}/talk"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.QueryEscape(parameterToString(uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.QueryEscape(parameterToString(uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

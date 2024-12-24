@@ -11,17 +11,18 @@
 package application
 
 import (
-	_context "context"
-	"github.com/antihax/optional"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io"
+	"net/http"
+	"net/url"
 	"strings"
+
+	"github.com/antihax/optional"
 )
 
 // Linger please
 var (
-	_ _context.Context
+	_ context.Context
 )
 
 // DefaultApiService DefaultApi service
@@ -33,13 +34,14 @@ type CreateApplicationOpts struct {
 
 /*
 CreateApplication Create an application
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param uNKNOWNBASETYPE
+  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param uNKNOWNBASETYPE
+
 @return ApplicationResponse
 */
-func (a *DefaultApiService) CreateApplication(ctx _context.Context, localVarOptionals *CreateApplicationOpts) (ApplicationResponse, *_nethttp.Response, error) {
+func (a *DefaultApiService) CreateApplication(ctx context.Context, localVarOptionals *CreateApplicationOpts) (ApplicationResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
@@ -50,8 +52,8 @@ func (a *DefaultApiService) CreateApplication(ctx _context.Context, localVarOpti
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/"
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -82,7 +84,7 @@ func (a *DefaultApiService) CreateApplication(ctx _context.Context, localVarOpti
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
@@ -160,12 +162,12 @@ func (a *DefaultApiService) CreateApplication(ctx _context.Context, localVarOpti
 /*
 DeleteApplication Delete an application
 Deleting an application **cannot be undone**.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param id The ID of the application
+  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param id The ID of the application
 */
-func (a *DefaultApiService) DeleteApplication(ctx _context.Context, id string) (*_nethttp.Response, error) {
+func (a *DefaultApiService) DeleteApplication(ctx context.Context, id string) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
@@ -174,11 +176,11 @@ func (a *DefaultApiService) DeleteApplication(ctx _context.Context, id string) (
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", _neturl.QueryEscape(parameterToString(id, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.QueryEscape(parameterToString(id, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -207,7 +209,7 @@ func (a *DefaultApiService) DeleteApplication(ctx _context.Context, id string) (
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	if err != nil {
 		return localVarHTTPResponse, err
@@ -265,13 +267,14 @@ func (a *DefaultApiService) DeleteApplication(ctx _context.Context, id string) (
 
 /*
 GetApplication Get an application
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param id The ID of the application
+  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param id The ID of the application
+
 @return ApplicationResponse
 */
-func (a *DefaultApiService) GetApplication(ctx _context.Context, id string) (ApplicationResponse, *_nethttp.Response, error) {
+func (a *DefaultApiService) GetApplication(ctx context.Context, id string) (ApplicationResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
@@ -281,11 +284,11 @@ func (a *DefaultApiService) GetApplication(ctx _context.Context, id string) (App
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", _neturl.QueryEscape(parameterToString(id, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.QueryEscape(parameterToString(id, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -314,7 +317,7 @@ func (a *DefaultApiService) GetApplication(ctx _context.Context, id string) (App
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
@@ -387,15 +390,16 @@ type ListApplicationOpts struct {
 
 /*
 ListApplication List available applications
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *ListApplicationOpts - Optional Parameters:
- * @param "PageSize" (optional.Int32) -  The number of applications per page
- * @param "Page" (optional.Int32) -  The current page number (starts at 1)
+  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *ListApplicationOpts - Optional Parameters:
+  - @param "PageSize" (optional.Int32) -  The number of applications per page
+  - @param "Page" (optional.Int32) -  The current page number (starts at 1)
+
 @return ApplicationResponseCollection
 */
-func (a *DefaultApiService) ListApplication(ctx _context.Context, localVarOptionals *ListApplicationOpts) (ApplicationResponseCollection, *_nethttp.Response, error) {
+func (a *DefaultApiService) ListApplication(ctx context.Context, localVarOptionals *ListApplicationOpts) (ApplicationResponseCollection, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
@@ -406,8 +410,8 @@ func (a *DefaultApiService) ListApplication(ctx _context.Context, localVarOption
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/"
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if localVarOptionals != nil && localVarOptionals.PageSize.IsSet() {
 		localVarQueryParams.Add("page_size", parameterToString(localVarOptionals.PageSize.Value(), ""))
@@ -442,7 +446,7 @@ func (a *DefaultApiService) ListApplication(ctx _context.Context, localVarOption
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
@@ -513,14 +517,15 @@ type UpdateApplicationOpts struct {
 
 /*
 UpdateApplication Update an application
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param id The ID of the application
- * @param uNKNOWNBASETYPE
+  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param id The ID of the application
+  - @param uNKNOWNBASETYPE
+
 @return ApplicationResponse
 */
-func (a *DefaultApiService) UpdateApplication(ctx _context.Context, id string, localVarOptionals *UpdateApplicationOpts) (ApplicationResponse, *_nethttp.Response, error) {
+func (a *DefaultApiService) UpdateApplication(ctx context.Context, id string, localVarOptionals *UpdateApplicationOpts) (ApplicationResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPut
+		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
@@ -530,11 +535,11 @@ func (a *DefaultApiService) UpdateApplication(ctx _context.Context, id string, l
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", _neturl.QueryEscape(parameterToString(id, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.QueryEscape(parameterToString(id, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -565,7 +570,7 @@ func (a *DefaultApiService) UpdateApplication(ctx _context.Context, id string, l
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err

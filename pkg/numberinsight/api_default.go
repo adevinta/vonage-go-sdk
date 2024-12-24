@@ -11,10 +11,10 @@
 package numberinsight
 
 import (
-	_context "context"
+	"context"
 	"io"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"net/http"
+	"net/url"
 	"strings"
 
 	"github.com/antihax/optional"
@@ -22,7 +22,7 @@ import (
 
 // Linger please
 var (
-	_ _context.Context
+	_ context.Context
 )
 
 // DefaultApiService DefaultApi service
@@ -38,7 +38,7 @@ type GetNumberInsightAdvancedOpts struct {
 /*
 GetNumberInsightAdvanced Advanced Number Insight (sync)
 Provides [advanced number insight](/number-insight/overview#basic-standard-and-advanced-apis) information about a number synchronously, in the same way that the basic and standard endpoints do.  Nexmo recommends accessing the Advanced API **asynchronously** using the &#x60;/advanced/async&#x60; endpoint, to avoid timeouts.  Note that this endpoint also supports &#x60;POST&#x60; requests.
-  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
   - @param format The format of the response
   - @param number A single phone number that you need insight about in national or international format.
   - @param optional nil or *GetNumberInsightAdvancedOpts - Optional Parameters:
@@ -48,9 +48,9 @@ Provides [advanced number insight](/number-insight/overview#basic-standard-and-a
 
 @return NiResponseJsonAdvanced
 */
-func (a *DefaultApiService) GetNumberInsightAdvanced(ctx _context.Context, format string, number string, localVarOptionals *GetNumberInsightAdvancedOpts) (NiResponseJsonAdvanced, *_nethttp.Response, error) {
+func (a *DefaultApiService) GetNumberInsightAdvanced(ctx context.Context, format string, number string, localVarOptionals *GetNumberInsightAdvancedOpts) (NiResponseJsonAdvanced, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
@@ -60,11 +60,11 @@ func (a *DefaultApiService) GetNumberInsightAdvanced(ctx _context.Context, forma
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/advanced/{format}"
-	localVarPath = strings.Replace(localVarPath, "{"+"format"+"}", _neturl.QueryEscape(parameterToString(format, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"format"+"}", url.QueryEscape(parameterToString(format, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	localVarQueryParams.Add("number", parameterToString(number, ""))
 	if localVarOptionals != nil && localVarOptionals.Country.IsSet() {
@@ -163,7 +163,7 @@ type GetNumberInsightAsyncOpts struct {
 /*
 GetNumberInsightAsync Advanced Number Insight (async)
 Provides [advanced number insight](/number-insight/overview#basic-standard-and-advanced-apis) number information **asynchronously** using the URL specified in the &#x60;callback&#x60; parameter. Nexmo recommends asynchronous use of the Number Insight Advanced API, to avoid timeouts.  Note that this endpoint also supports &#x60;POST&#x60; requests.
-  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
   - @param format The format of the response
   - @param callback The callback URL
   - @param number A single phone number that you need insight about in national or international format.
@@ -174,9 +174,9 @@ Provides [advanced number insight](/number-insight/overview#basic-standard-and-a
 
 @return NiResponseAsync
 */
-func (a *DefaultApiService) GetNumberInsightAsync(ctx _context.Context, format string, callback string, number string, localVarOptionals *GetNumberInsightAsyncOpts) (NiResponseAsync, *_nethttp.Response, error) {
+func (a *DefaultApiService) GetNumberInsightAsync(ctx context.Context, format string, callback string, number string, localVarOptionals *GetNumberInsightAsyncOpts) (NiResponseAsync, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
@@ -186,11 +186,11 @@ func (a *DefaultApiService) GetNumberInsightAsync(ctx _context.Context, format s
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/advanced/async/{format}"
-	localVarPath = strings.Replace(localVarPath, "{"+"format"+"}", _neturl.QueryEscape(parameterToString(format, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"format"+"}", url.QueryEscape(parameterToString(format, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	localVarQueryParams.Add("callback", parameterToString(callback, ""))
 	localVarQueryParams.Add("number", parameterToString(number, ""))
@@ -288,7 +288,7 @@ type GetNumberInsightBasicOpts struct {
 /*
 GetNumberInsightBasic Basic Number Insight
 Provides [basic number insight](/number-insight/overview#basic-standard-and-advanced-apis) information about a number.  Note that this endpoint also supports &#x60;POST&#x60; requests.
-  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
   - @param format The format of the response
   - @param number A single phone number that you need insight about in national or international format.
   - @param optional nil or *GetNumberInsightBasicOpts - Optional Parameters:
@@ -296,9 +296,9 @@ Provides [basic number insight](/number-insight/overview#basic-standard-and-adva
 
 @return NiResponseJsonBasic
 */
-func (a *DefaultApiService) GetNumberInsightBasic(ctx _context.Context, format string, number string, localVarOptionals *GetNumberInsightBasicOpts) (NiResponseJsonBasic, *_nethttp.Response, error) {
+func (a *DefaultApiService) GetNumberInsightBasic(ctx context.Context, format string, number string, localVarOptionals *GetNumberInsightBasicOpts) (NiResponseJsonBasic, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
@@ -308,11 +308,11 @@ func (a *DefaultApiService) GetNumberInsightBasic(ctx _context.Context, format s
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/basic/{format}"
-	localVarPath = strings.Replace(localVarPath, "{"+"format"+"}", _neturl.QueryEscape(parameterToString(format, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"format"+"}", url.QueryEscape(parameterToString(format, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	localVarQueryParams.Add("number", parameterToString(number, ""))
 	if localVarOptionals != nil && localVarOptionals.Country.IsSet() {
@@ -404,7 +404,7 @@ type GetNumberInsightStandardOpts struct {
 /*
 GetNumberInsightStandard Standard Number Insight
 Provides [standard number insight](/number-insight/overview#basic-standard-and-advanced-apis) information about a number.  Note that this endpoint also supports &#x60;POST&#x60; requests.
-  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
   - @param format The format of the response
   - @param number A single phone number that you need insight about in national or international format.
   - @param optional nil or *GetNumberInsightStandardOpts - Optional Parameters:
@@ -413,9 +413,9 @@ Provides [standard number insight](/number-insight/overview#basic-standard-and-a
 
 @return NiResponseJsonStandard
 */
-func (a *DefaultApiService) GetNumberInsightStandard(ctx _context.Context, format string, number string, localVarOptionals *GetNumberInsightStandardOpts) (NiResponseJsonStandard, *_nethttp.Response, error) {
+func (a *DefaultApiService) GetNumberInsightStandard(ctx context.Context, format string, number string, localVarOptionals *GetNumberInsightStandardOpts) (NiResponseJsonStandard, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
@@ -425,11 +425,11 @@ func (a *DefaultApiService) GetNumberInsightStandard(ctx _context.Context, forma
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/standard/{format}"
-	localVarPath = strings.Replace(localVarPath, "{"+"format"+"}", _neturl.QueryEscape(parameterToString(format, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"format"+"}", url.QueryEscape(parameterToString(format, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	localVarQueryParams.Add("number", parameterToString(number, ""))
 	if localVarOptionals != nil && localVarOptionals.Country.IsSet() {

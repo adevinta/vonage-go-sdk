@@ -12,11 +12,11 @@ package sms
 
 import (
 	"bytes"
-	_context "context"
+	"context"
 	"fmt"
 	"io"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"net/http"
+	"net/url"
 	"strings"
 
 	"github.com/antihax/optional"
@@ -24,7 +24,7 @@ import (
 
 // Linger please
 var (
-	_ _context.Context
+	_ context.Context
 )
 
 // DefaultApiService DefaultApi service
@@ -55,7 +55,7 @@ type SendAnSmsOpts struct {
 /*
 SendAnSms Send an SMS
 Send an outbound SMS from your Nexmo account
-  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
   - @param format The format of the response
   - @param apiKey Your API key
   - @param from The name or number the message should be sent from. Alphanumeric senderID's are not supported in all countries, see [Global Messaging](https://developer.nexmo.com/messaging/sms/guides/global-messaging#country-specific-features) for more details. If alphanumeric, spaces will be ignored. Numbers are specified in E.164 format.
@@ -82,9 +82,9 @@ Send an outbound SMS from your Nexmo account
 
 @return Sms
 */
-func (a *DefaultApiService) SendAnSms(ctx _context.Context, format string, apiKey string, from string, to string, localVarOptionals *SendAnSmsOpts) (Sms, *_nethttp.Response, error) {
+func (a *DefaultApiService) SendAnSms(ctx context.Context, format string, apiKey string, from string, to string, localVarOptionals *SendAnSmsOpts) (Sms, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
@@ -94,11 +94,11 @@ func (a *DefaultApiService) SendAnSms(ctx _context.Context, format string, apiKe
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/{format}"
-	localVarPath = strings.Replace(localVarPath, "{"+"format"+"}", _neturl.QueryEscape(fmt.Sprintf("%v", format)), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"format"+"}", url.QueryEscape(fmt.Sprintf("%v", format)), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if strlen(apiKey) < 8 {
 		return localVarReturnValue, nil, reportError("apiKey must have at least 8 elements")
 	}
