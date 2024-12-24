@@ -5,8 +5,8 @@ import (
 	"encoding/json"
 	"io/ioutil"
 
+	"github.com/adevinta/vonage-go-sdk/pkg/verify"
 	"github.com/antihax/optional"
-	"github.com/vonage/vonage-go-sdk/pkg/verify"
 )
 
 // VerifyClient for working with the Verify API

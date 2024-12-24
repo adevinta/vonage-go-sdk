@@ -4,8 +4,8 @@ import (
 	"context"
 	"encoding/json"
 
+	"github.com/adevinta/vonage-go-sdk/pkg/application"
 	"github.com/antihax/optional"
-	"github.com/vonage/vonage-go-sdk/pkg/application"
 )
 
 // ApplicationClient for working with the Application API
