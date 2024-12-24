@@ -12,7 +12,7 @@ package voice
 
 import (
 	_context "context"
-	_ioutil "io/ioutil"
+	"io"
 	_nethttp "net/http"
 	_neturl "net/url"
 	"strings"
@@ -29,9 +29,10 @@ type StreamAudioApiService service
 /*
 StartStream Play an audio file into a call
 Play an audio file into a call
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param uuid UUID of the Call Leg
- * @param startStreamRequest action to perform
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param uuid UUID of the Call Leg
+  - @param startStreamRequest action to perform
+
 @return StartStreamResponse
 */
 func (a *StreamAudioApiService) StartStream(ctx _context.Context, uuid string, startStreamRequest StartStreamRequest) (StartStreamResponse, *_nethttp.Response, error) {
@@ -81,7 +82,7 @@ func (a *StreamAudioApiService) StartStream(ctx _context.Context, uuid string, s
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
@@ -110,8 +111,9 @@ func (a *StreamAudioApiService) StartStream(ctx _context.Context, uuid string, s
 /*
 StopStream Stop playing an audio file into a call
 Stop playing an audio file into a call
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param uuid UUID of the Call Leg
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param uuid UUID of the Call Leg
+
 @return StopStreamResponse
 */
 func (a *StreamAudioApiService) StopStream(ctx _context.Context, uuid string) (StopStreamResponse, *_nethttp.Response, error) {
@@ -159,7 +161,7 @@ func (a *StreamAudioApiService) StopStream(ctx _context.Context, uuid string) (S
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err

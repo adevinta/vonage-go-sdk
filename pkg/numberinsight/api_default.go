@@ -12,11 +12,12 @@ package numberinsight
 
 import (
 	_context "context"
-	"github.com/antihax/optional"
-	_ioutil "io/ioutil"
+	"io"
 	_nethttp "net/http"
 	_neturl "net/url"
 	"strings"
+
+	"github.com/antihax/optional"
 )
 
 // Linger please
@@ -37,13 +38,14 @@ type GetNumberInsightAdvancedOpts struct {
 /*
 GetNumberInsightAdvanced Advanced Number Insight (sync)
 Provides [advanced number insight](/number-insight/overview#basic-standard-and-advanced-apis) information about a number synchronously, in the same way that the basic and standard endpoints do.  Nexmo recommends accessing the Advanced API **asynchronously** using the &#x60;/advanced/async&#x60; endpoint, to avoid timeouts.  Note that this endpoint also supports &#x60;POST&#x60; requests.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param format The format of the response
- * @param number A single phone number that you need insight about in national or international format.
- * @param optional nil or *GetNumberInsightAdvancedOpts - Optional Parameters:
- * @param "Country" (optional.String) -  If a number does not have a country code or is uncertain, set the two-character country code. This code must be in ISO 3166-1 alpha-2 format and in upper case. For example, GB or US. If you set country and number is already in [E.164](https://en.wikipedia.org/wiki/E.164) format, country must match the country code in number.
- * @param "Cnam" (optional.Bool) -  Indicates if the name of the person who owns the phone number should be looked up and returned in the response. Set to true to receive phone number owner name in the response. This features is available for US numbers only and incurs an additional charge.
- * @param "Ip" (optional.String) -  This parameter is deprecated as we are no longer able to retrieve reliable IP data globally from carriers.
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param format The format of the response
+  - @param number A single phone number that you need insight about in national or international format.
+  - @param optional nil or *GetNumberInsightAdvancedOpts - Optional Parameters:
+  - @param "Country" (optional.String) -  If a number does not have a country code or is uncertain, set the two-character country code. This code must be in ISO 3166-1 alpha-2 format and in upper case. For example, GB or US. If you set country and number is already in [E.164](https://en.wikipedia.org/wiki/E.164) format, country must match the country code in number.
+  - @param "Cnam" (optional.Bool) -  Indicates if the name of the person who owns the phone number should be looked up and returned in the response. Set to true to receive phone number owner name in the response. This features is available for US numbers only and incurs an additional charge.
+  - @param "Ip" (optional.String) -  This parameter is deprecated as we are no longer able to retrieve reliable IP data globally from carriers.
+
 @return NiResponseJsonAdvanced
 */
 func (a *DefaultApiService) GetNumberInsightAdvanced(ctx _context.Context, format string, number string, localVarOptionals *GetNumberInsightAdvancedOpts) (NiResponseJsonAdvanced, *_nethttp.Response, error) {
@@ -125,7 +127,7 @@ func (a *DefaultApiService) GetNumberInsightAdvanced(ctx _context.Context, forma
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
@@ -161,14 +163,15 @@ type GetNumberInsightAsyncOpts struct {
 /*
 GetNumberInsightAsync Advanced Number Insight (async)
 Provides [advanced number insight](/number-insight/overview#basic-standard-and-advanced-apis) number information **asynchronously** using the URL specified in the &#x60;callback&#x60; parameter. Nexmo recommends asynchronous use of the Number Insight Advanced API, to avoid timeouts.  Note that this endpoint also supports &#x60;POST&#x60; requests.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param format The format of the response
- * @param callback The callback URL
- * @param number A single phone number that you need insight about in national or international format.
- * @param optional nil or *GetNumberInsightAsyncOpts - Optional Parameters:
- * @param "Country" (optional.String) -  If a number does not have a country code or is uncertain, set the two-character country code. This code must be in ISO 3166-1 alpha-2 format and in upper case. For example, GB or US. If you set country and number is already in [E.164](https://en.wikipedia.org/wiki/E.164) format, country must match the country code in number.
- * @param "Cnam" (optional.Bool) -  Indicates if the name of the person who owns the phone number should be looked up and returned in the response. Set to true to receive phone number owner name in the response. This features is available for US numbers only and incurs an additional charge.
- * @param "Ip" (optional.String) -  This parameter is deprecated as we are no longer able to retrieve reliable IP data globally from carriers.
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param format The format of the response
+  - @param callback The callback URL
+  - @param number A single phone number that you need insight about in national or international format.
+  - @param optional nil or *GetNumberInsightAsyncOpts - Optional Parameters:
+  - @param "Country" (optional.String) -  If a number does not have a country code or is uncertain, set the two-character country code. This code must be in ISO 3166-1 alpha-2 format and in upper case. For example, GB or US. If you set country and number is already in [E.164](https://en.wikipedia.org/wiki/E.164) format, country must match the country code in number.
+  - @param "Cnam" (optional.Bool) -  Indicates if the name of the person who owns the phone number should be looked up and returned in the response. Set to true to receive phone number owner name in the response. This features is available for US numbers only and incurs an additional charge.
+  - @param "Ip" (optional.String) -  This parameter is deprecated as we are no longer able to retrieve reliable IP data globally from carriers.
+
 @return NiResponseAsync
 */
 func (a *DefaultApiService) GetNumberInsightAsync(ctx _context.Context, format string, callback string, number string, localVarOptionals *GetNumberInsightAsyncOpts) (NiResponseAsync, *_nethttp.Response, error) {
@@ -251,7 +254,7 @@ func (a *DefaultApiService) GetNumberInsightAsync(ctx _context.Context, format s
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
@@ -285,11 +288,12 @@ type GetNumberInsightBasicOpts struct {
 /*
 GetNumberInsightBasic Basic Number Insight
 Provides [basic number insight](/number-insight/overview#basic-standard-and-advanced-apis) information about a number.  Note that this endpoint also supports &#x60;POST&#x60; requests.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param format The format of the response
- * @param number A single phone number that you need insight about in national or international format.
- * @param optional nil or *GetNumberInsightBasicOpts - Optional Parameters:
- * @param "Country" (optional.String) -  If a number does not have a country code or is uncertain, set the two-character country code. This code must be in ISO 3166-1 alpha-2 format and in upper case. For example, GB or US. If you set country and number is already in [E.164](https://en.wikipedia.org/wiki/E.164) format, country must match the country code in number.
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param format The format of the response
+  - @param number A single phone number that you need insight about in national or international format.
+  - @param optional nil or *GetNumberInsightBasicOpts - Optional Parameters:
+  - @param "Country" (optional.String) -  If a number does not have a country code or is uncertain, set the two-character country code. This code must be in ISO 3166-1 alpha-2 format and in upper case. For example, GB or US. If you set country and number is already in [E.164](https://en.wikipedia.org/wiki/E.164) format, country must match the country code in number.
+
 @return NiResponseJsonBasic
 */
 func (a *DefaultApiService) GetNumberInsightBasic(ctx _context.Context, format string, number string, localVarOptionals *GetNumberInsightBasicOpts) (NiResponseJsonBasic, *_nethttp.Response, error) {
@@ -365,7 +369,7 @@ func (a *DefaultApiService) GetNumberInsightBasic(ctx _context.Context, format s
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
@@ -400,12 +404,13 @@ type GetNumberInsightStandardOpts struct {
 /*
 GetNumberInsightStandard Standard Number Insight
 Provides [standard number insight](/number-insight/overview#basic-standard-and-advanced-apis) information about a number.  Note that this endpoint also supports &#x60;POST&#x60; requests.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param format The format of the response
- * @param number A single phone number that you need insight about in national or international format.
- * @param optional nil or *GetNumberInsightStandardOpts - Optional Parameters:
- * @param "Country" (optional.String) -  If a number does not have a country code or is uncertain, set the two-character country code. This code must be in ISO 3166-1 alpha-2 format and in upper case. For example, GB or US. If you set country and number is already in [E.164](https://en.wikipedia.org/wiki/E.164) format, country must match the country code in number.
- * @param "Cnam" (optional.Bool) -  Indicates if the name of the person who owns the phone number should be looked up and returned in the response. Set to true to receive phone number owner name in the response. This features is available for US numbers only and incurs an additional charge.
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param format The format of the response
+  - @param number A single phone number that you need insight about in national or international format.
+  - @param optional nil or *GetNumberInsightStandardOpts - Optional Parameters:
+  - @param "Country" (optional.String) -  If a number does not have a country code or is uncertain, set the two-character country code. This code must be in ISO 3166-1 alpha-2 format and in upper case. For example, GB or US. If you set country and number is already in [E.164](https://en.wikipedia.org/wiki/E.164) format, country must match the country code in number.
+  - @param "Cnam" (optional.Bool) -  Indicates if the name of the person who owns the phone number should be looked up and returned in the response. Set to true to receive phone number owner name in the response. This features is available for US numbers only and incurs an additional charge.
+
 @return NiResponseJsonStandard
 */
 func (a *DefaultApiService) GetNumberInsightStandard(ctx _context.Context, format string, number string, localVarOptionals *GetNumberInsightStandardOpts) (NiResponseJsonStandard, *_nethttp.Response, error) {
@@ -484,7 +489,7 @@ func (a *DefaultApiService) GetNumberInsightStandard(ctx _context.Context, forma
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err

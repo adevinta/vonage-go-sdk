@@ -12,7 +12,7 @@ package voice
 
 import (
 	_context "context"
-	_ioutil "io/ioutil"
+	"io"
 	_nethttp "net/http"
 	_neturl "net/url"
 	"strings"
@@ -36,9 +36,10 @@ type CreateCallOpts struct {
 /*
 CreateCall Create an outbound call
 Create an outbound Call
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *CreateCallOpts - Optional Parameters:
- * @param "UNKNOWNBASETYPE" (optional.Interface of UNKNOWN_BASE_TYPE) -  Call Details
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *CreateCallOpts - Optional Parameters:
+  - @param "UNKNOWNBASETYPE" (optional.Interface of UNKNOWN_BASE_TYPE) -  Call Details
+
 @return CreateCallResponse
 */
 func (a *CallsApiService) CreateCall(ctx _context.Context, localVarOptionals *CreateCallOpts) (CreateCallResponse, *_nethttp.Response, error) {
@@ -87,7 +88,7 @@ func (a *CallsApiService) CreateCall(ctx _context.Context, localVarOptionals *Cr
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
@@ -116,8 +117,9 @@ func (a *CallsApiService) CreateCall(ctx _context.Context, localVarOptionals *Cr
 /*
 GetCall Get detail of a specific call
 Get detail of a specific call
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param uuid UUID of the Call
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param uuid UUID of the Call
+
 @return GetCallResponse
 */
 func (a *CallsApiService) GetCall(ctx _context.Context, uuid string) (GetCallResponse, *_nethttp.Response, error) {
@@ -165,7 +167,7 @@ func (a *CallsApiService) GetCall(ctx _context.Context, uuid string) (GetCallRes
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
@@ -205,15 +207,16 @@ type GetCallsOpts struct {
 /*
 GetCalls Get details of your calls
 Get details of your calls
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *GetCallsOpts - Optional Parameters:
- * @param "Status" (optional.String) -  Filter by call status
- * @param "DateStart" (optional.Time) -  Return the records that occurred after this point in time
- * @param "DateEnd" (optional.Time) -  Return the records that occurred before this point in time
- * @param "PageSize" (optional.Int32) -  Return this amount of records in the response
- * @param "RecordIndex" (optional.Int32) -  Return calls from this index in the response
- * @param "Order" (optional.String) -  Either ascending or  descending order.
- * @param "ConversationUuid" (optional.Interface of string) -  Return all the records associated with a specific conversation.
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *GetCallsOpts - Optional Parameters:
+  - @param "Status" (optional.String) -  Filter by call status
+  - @param "DateStart" (optional.Time) -  Return the records that occurred after this point in time
+  - @param "DateEnd" (optional.Time) -  Return the records that occurred before this point in time
+  - @param "PageSize" (optional.Int32) -  Return this amount of records in the response
+  - @param "RecordIndex" (optional.Int32) -  Return calls from this index in the response
+  - @param "Order" (optional.String) -  Either ascending or  descending order.
+  - @param "ConversationUuid" (optional.Interface of string) -  Return all the records associated with a specific conversation.
+
 @return GetCallsResponse
 */
 func (a *CallsApiService) GetCalls(ctx _context.Context, localVarOptionals *GetCallsOpts) (GetCallsResponse, *_nethttp.Response, error) {
@@ -280,7 +283,7 @@ func (a *CallsApiService) GetCalls(ctx _context.Context, localVarOptionals *GetC
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
@@ -314,9 +317,9 @@ type ModifyCallOpts struct {
 /*
 UpdateCall Modify an in progress call
 Modify an in progress call
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param uuid UUID of the Call
- * @param uNKNOWNBASETYPE
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param uuid UUID of the Call
+  - @param uNKNOWNBASETYPE
 */
 func (a *CallsApiService) UpdateCall(ctx _context.Context, uuid string, localVarOptionals *ModifyCallOpts) (*_nethttp.Response, error) {
 	var (
@@ -364,7 +367,7 @@ func (a *CallsApiService) UpdateCall(ctx _context.Context, uuid string, localVar
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	if err != nil {
 		return localVarHTTPResponse, err

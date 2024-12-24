@@ -12,11 +12,12 @@ package voice
 
 import (
 	_context "context"
-	"github.com/antihax/optional"
-	_ioutil "io/ioutil"
+	"io"
 	_nethttp "net/http"
 	_neturl "net/url"
 	"strings"
+
+	"github.com/antihax/optional"
 )
 
 // Linger please
@@ -35,10 +36,11 @@ type StartTalkOpts struct {
 /*
 StartTalk Play text to speech into a call
 Play text to speech into a call
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param uuid UUID of the Call Leg
- * @param optional nil or *StartTalkOpts - Optional Parameters:
- * @param "StartTalkRequest" (optional.Interface of StartTalkRequest) -  Action to perform
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param uuid UUID of the Call Leg
+  - @param optional nil or *StartTalkOpts - Optional Parameters:
+  - @param "StartTalkRequest" (optional.Interface of StartTalkRequest) -  Action to perform
+
 @return StartTalkResponse
 */
 func (a *PlayTTSApiService) StartTalk(ctx _context.Context, uuid string, localVarOptionals *StartTalkOpts) (StartTalkResponse, *_nethttp.Response, error) {
@@ -95,7 +97,7 @@ func (a *PlayTTSApiService) StartTalk(ctx _context.Context, uuid string, localVa
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
@@ -124,8 +126,9 @@ func (a *PlayTTSApiService) StartTalk(ctx _context.Context, uuid string, localVa
 /*
 StopTalk Stop text to speech in a call
 Stop text to speech in a call
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param uuid UUID of the Call Leg
+  - @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param uuid UUID of the Call Leg
+
 @return StopTalkResponse
 */
 func (a *PlayTTSApiService) StopTalk(ctx _context.Context, uuid string) (StopTalkResponse, *_nethttp.Response, error) {
@@ -173,7 +176,7 @@ func (a *PlayTTSApiService) StopTalk(ctx _context.Context, uuid string) (StopTal
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
