@@ -5,7 +5,7 @@
 package vonage
 
 import (
-	"github.com/vonage/vonage-go-sdk/jwt"
+	"github.com/adevinta/vonage-go-sdk/jwt"
 )
 
 // Auth types are various but support a common interface
@@ -46,7 +46,7 @@ func (auth *JWTAuth) GetCreds() []string {
 }
 
 // CreateAuthFromAppPrivateKey is a helper method to generate auth from an
-// Application ID and a []byte of the private key (use with ioutil.ReadFile)
+// Application ID and a []byte of the private key (use with io.ReadFile)
 func CreateAuthFromAppPrivateKey(appID string, privateKey []byte) (*JWTAuth, error) {
 	jwtGen := jwt.NewGenerator(appID, privateKey)
 	token, tokenErr := jwtGen.GenerateToken()

@@ -3,10 +3,10 @@ package vonage
 import (
 	"context"
 	"encoding/json"
-	"io/ioutil"
+	"io"
 
+	"github.com/adevinta/vonage-go-sdk/pkg/verify"
 	"github.com/antihax/optional"
-	"github.com/vonage/vonage-go-sdk/pkg/verify"
 )
 
 // VerifyClient for working with the Verify API
@@ -93,7 +93,7 @@ func (client *VerifyClient) Request(number string, brand string, opts VerifyOpts
 
 	// non-zero statuses are also errors
 	if result.Status != "0" {
-		data, _ := ioutil.ReadAll(resp.Body)
+		data, _ := io.ReadAll(resp.Body)
 
 		var errResp VerifyErrorResponse
 		jsonErr := json.Unmarshal(data, &errResp)
@@ -130,7 +130,7 @@ func (client *VerifyClient) Check(requestID string, code string) (VerifyCheckRes
 
 	// non-zero statuses are also errors
 	if result.Status != "0" {
-		data, _ := ioutil.ReadAll(resp.Body)
+		data, _ := io.ReadAll(resp.Body)
 
 		var errResp VerifyErrorResponse
 		jsonErr := json.Unmarshal(data, &errResp)
@@ -177,7 +177,7 @@ func (client *VerifyClient) Search(requestID string) (VerifySearchResponse, Veri
 
 	// search failed if we didn't get a request ID
 	if result.RequestId == "" {
-		data, _ := ioutil.ReadAll(resp.Body)
+		data, _ := io.ReadAll(resp.Body)
 
 		var errResp VerifyErrorResponse
 		jsonErr := json.Unmarshal(data, &errResp)
@@ -209,7 +209,7 @@ func (client *VerifyClient) Cancel(requestID string) (VerifyControlResponse, Ver
 
 	// search statuses are strings
 	if result.Status != "0" {
-		data, _ := ioutil.ReadAll(resp.Body)
+		data, _ := io.ReadAll(resp.Body)
 
 		var errResp VerifyErrorResponse
 		jsonErr := json.Unmarshal(data, &errResp)
@@ -236,7 +236,7 @@ func (client *VerifyClient) TriggerNextEvent(requestID string) (VerifyControlRes
 
 	// search statuses are strings
 	if result.Status != "0" {
-		data, _ := ioutil.ReadAll(resp.Body)
+		data, _ := io.ReadAll(resp.Body)
 
 		var errResp VerifyErrorResponse
 		jsonErr := json.Unmarshal(data, &errResp)
@@ -288,7 +288,7 @@ func (client *VerifyClient) Psd2(number string, payee string, amount float64, op
 
 	// non-zero statuses are also errors
 	if result.Status != "0" {
-		data, _ := ioutil.ReadAll(resp.Body)
+		data, _ := io.ReadAll(resp.Body)
 
 		var errResp VerifyErrorResponse
 		jsonErr := json.Unmarshal(data, &errResp)

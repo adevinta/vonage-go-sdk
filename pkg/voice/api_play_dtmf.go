@@ -11,16 +11,16 @@
 package voice
 
 import (
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io"
+	"net/http"
+	"net/url"
 	"strings"
 )
 
 // Linger please
 var (
-	_ _context.Context
+	_ context.Context
 )
 
 // PlayDTMFApiService PlayDTMFApi service
@@ -29,14 +29,15 @@ type PlayDTMFApiService service
 /*
 StartDTMF Play DTMF tones into a call
 Play DTMF tones into a call
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param uuid UUID of the Call Leg
- * @param dtmfRequest action to perform
+  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param uuid UUID of the Call Leg
+  - @param dtmfRequest action to perform
+
 @return DtmfResponse
 */
-func (a *PlayDTMFApiService) StartDTMF(ctx _context.Context, uuid string, dtmfRequest DtmfRequest) (DtmfResponse, *_nethttp.Response, error) {
+func (a *PlayDTMFApiService) StartDTMF(ctx context.Context, uuid string, dtmfRequest DtmfRequest) (DtmfResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPut
+		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
@@ -46,11 +47,11 @@ func (a *PlayDTMFApiService) StartDTMF(ctx _context.Context, uuid string, dtmfRe
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/{uuid}/dtmf"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.QueryEscape(parameterToString(uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.QueryEscape(parameterToString(uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -81,7 +82,7 @@ func (a *PlayDTMFApiService) StartDTMF(ctx _context.Context, uuid string, dtmfRe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err

@@ -12,12 +12,11 @@ package sms
 
 import (
 	"bytes"
-	_context "context"
+	"context"
 	"fmt"
-	"io/ioutil"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"io"
+	"net/http"
+	"net/url"
 	"strings"
 
 	"github.com/antihax/optional"
@@ -25,7 +24,7 @@ import (
 
 // Linger please
 var (
-	_ _context.Context
+	_ context.Context
 )
 
 // DefaultApiService DefaultApi service
@@ -56,35 +55,36 @@ type SendAnSmsOpts struct {
 /*
 SendAnSms Send an SMS
 Send an outbound SMS from your Nexmo account
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param format The format of the response
- * @param apiKey Your API key
- * @param from The name or number the message should be sent from. Alphanumeric senderID's are not supported in all countries, see [Global Messaging](https://developer.nexmo.com/messaging/sms/guides/global-messaging#country-specific-features) for more details. If alphanumeric, spaces will be ignored. Numbers are specified in E.164 format.
- * @param to The number that the message should be sent to. Numbers are specified in E.164 format.
- * @param optional nil or *SendAnSmsOpts - Optional Parameters:
- * @param "ApiSecret" (optional.String) -  Your API secret. Required unless `sig` is provided
- * @param "Sig" (optional.String) -  The hash of the request parameters in alphabetical order, a timestamp and the signature secret. See [Signing Requests](/concepts/guides/signing-messages) for more details.
- * @param "Text" (optional.String) -  The body of the message being sent. If your message contains characters that can be encoded according to the GSM Standard and Extended tables then you can set the `type` to `text`. If your message contains characters outside this range, then you will need to set the `type` to `unicode`.
- * @param "Ttl" (optional.Int32) -  **Advanced**: The duration in milliseconds the delivery of an SMS will be attempted.§§ By default Nexmo attempt delivery for 72 hours, however the maximum effective value depends on the operator and is typically 24 - 48 hours. We recommend this value should be kept at its default or at least 30 minutes.
- * @param "StatusReportReq" (optional.Bool) -  **Advanced**: Boolean indicating if you like to receive a [Delivery Receipt](https://developer.nexmo.com/messaging/sms/building-blocks/receive-a-delivery-receipt).
- * @param "Callback" (optional.String) -  **Advanced**: The webhook endpoint the delivery receipt for this sms is sent to. This parameter overrides the webhook endpoint you set in Dashboard.
- * @param "MessageClass" (optional.Int32) -  **Advanced**: The Data Coding Scheme value of the message
- * @param "Type_" (optional.String) -  **Advanced**: The format of the message body
- * @param "Vcard" (optional.String) -  **Advanced**: A business card in [vCard format](https://en.wikipedia.org/wiki/VCard). Depends on `type` parameter having the value `vcard`.
- * @param "Vcal" (optional.String) -  **Advanced**: A calendar event in [vCal format](https://en.wikipedia.org/wiki/VCal). Depends on `type` parameter having the value `vcal`.
- * @param "Body" (optional.String) -  **Advanced**: Hex encoded binary data. Depends on `type` parameter having the value `binary`.
- * @param "Udh" (optional.String) -  **Advanced**: Your custom Hex encoded [User Data Header](https://en.wikipedia.org/wiki/User_Data_Header). Depends on `type` parameter having the value `binary`.
- * @param "ProtocolId" (optional.Int32) -  **Advanced**: The value of the [protocol identifier](https://en.wikipedia.org/wiki/GSM_03.40#Protocol_Identifier) to use. Ensure that the value is aligned with `udh`.
- * @param "Title" (optional.String) -  **Advanced**: The title for a wappush SMS. Depends on `type` parameter having the value `wappush`.
- * @param "Url" (optional.String) -  **Advanced**: The URL of your website. Depends on `type` parameter having the value `wappush`.
- * @param "Validity" (optional.String) -  **Advanced**: The availability for an SMS in milliseconds. Depends on `type` parameter having the value `wappush`.
- * @param "ClientRef" (optional.String) -  **Advanced**: You can optionally include your own reference of up to 40 characters.
- * @param "AccountRef" (optional.String) -  **Advanced**: An optional string used to identify separate accounts using the SMS endpoint for billing purposes. To use this feature, please email [support@nexmo.com](mailto:support@nexmo.com)
+  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param format The format of the response
+  - @param apiKey Your API key
+  - @param from The name or number the message should be sent from. Alphanumeric senderID's are not supported in all countries, see [Global Messaging](https://developer.nexmo.com/messaging/sms/guides/global-messaging#country-specific-features) for more details. If alphanumeric, spaces will be ignored. Numbers are specified in E.164 format.
+  - @param to The number that the message should be sent to. Numbers are specified in E.164 format.
+  - @param optional nil or *SendAnSmsOpts - Optional Parameters:
+  - @param "ApiSecret" (optional.String) -  Your API secret. Required unless `sig` is provided
+  - @param "Sig" (optional.String) -  The hash of the request parameters in alphabetical order, a timestamp and the signature secret. See [Signing Requests](/concepts/guides/signing-messages) for more details.
+  - @param "Text" (optional.String) -  The body of the message being sent. If your message contains characters that can be encoded according to the GSM Standard and Extended tables then you can set the `type` to `text`. If your message contains characters outside this range, then you will need to set the `type` to `unicode`.
+  - @param "Ttl" (optional.Int32) -  **Advanced**: The duration in milliseconds the delivery of an SMS will be attempted.§§ By default Nexmo attempt delivery for 72 hours, however the maximum effective value depends on the operator and is typically 24 - 48 hours. We recommend this value should be kept at its default or at least 30 minutes.
+  - @param "StatusReportReq" (optional.Bool) -  **Advanced**: Boolean indicating if you like to receive a [Delivery Receipt](https://developer.nexmo.com/messaging/sms/building-blocks/receive-a-delivery-receipt).
+  - @param "Callback" (optional.String) -  **Advanced**: The webhook endpoint the delivery receipt for this sms is sent to. This parameter overrides the webhook endpoint you set in Dashboard.
+  - @param "MessageClass" (optional.Int32) -  **Advanced**: The Data Coding Scheme value of the message
+  - @param "Type_" (optional.String) -  **Advanced**: The format of the message body
+  - @param "Vcard" (optional.String) -  **Advanced**: A business card in [vCard format](https://en.wikipedia.org/wiki/VCard). Depends on `type` parameter having the value `vcard`.
+  - @param "Vcal" (optional.String) -  **Advanced**: A calendar event in [vCal format](https://en.wikipedia.org/wiki/VCal). Depends on `type` parameter having the value `vcal`.
+  - @param "Body" (optional.String) -  **Advanced**: Hex encoded binary data. Depends on `type` parameter having the value `binary`.
+  - @param "Udh" (optional.String) -  **Advanced**: Your custom Hex encoded [User Data Header](https://en.wikipedia.org/wiki/User_Data_Header). Depends on `type` parameter having the value `binary`.
+  - @param "ProtocolId" (optional.Int32) -  **Advanced**: The value of the [protocol identifier](https://en.wikipedia.org/wiki/GSM_03.40#Protocol_Identifier) to use. Ensure that the value is aligned with `udh`.
+  - @param "Title" (optional.String) -  **Advanced**: The title for a wappush SMS. Depends on `type` parameter having the value `wappush`.
+  - @param "Url" (optional.String) -  **Advanced**: The URL of your website. Depends on `type` parameter having the value `wappush`.
+  - @param "Validity" (optional.String) -  **Advanced**: The availability for an SMS in milliseconds. Depends on `type` parameter having the value `wappush`.
+  - @param "ClientRef" (optional.String) -  **Advanced**: You can optionally include your own reference of up to 40 characters.
+  - @param "AccountRef" (optional.String) -  **Advanced**: An optional string used to identify separate accounts using the SMS endpoint for billing purposes. To use this feature, please email [support@nexmo.com](mailto:support@nexmo.com)
+
 @return Sms
 */
-func (a *DefaultApiService) SendAnSms(ctx _context.Context, format string, apiKey string, from string, to string, localVarOptionals *SendAnSmsOpts) (Sms, *_nethttp.Response, error) {
+func (a *DefaultApiService) SendAnSms(ctx context.Context, format string, apiKey string, from string, to string, localVarOptionals *SendAnSmsOpts) (Sms, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
@@ -94,11 +94,11 @@ func (a *DefaultApiService) SendAnSms(ctx _context.Context, format string, apiKe
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/{format}"
-	localVarPath = strings.Replace(localVarPath, "{"+"format"+"}", _neturl.QueryEscape(fmt.Sprintf("%v", format)), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"format"+"}", url.QueryEscape(fmt.Sprintf("%v", format)), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if strlen(apiKey) < 8 {
 		return localVarReturnValue, nil, reportError("apiKey must have at least 8 elements")
 	}
@@ -196,11 +196,11 @@ func (a *DefaultApiService) SendAnSms(ctx _context.Context, format string, apiKe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 
 	// hack to reinstate the body in case we need it
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err

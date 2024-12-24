@@ -11,16 +11,16 @@
 package voice
 
 import (
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io"
+	"net/http"
+	"net/url"
 	"strings"
 )
 
 // Linger please
 var (
-	_ _context.Context
+	_ context.Context
 )
 
 // StreamAudioApiService StreamAudioApi service
@@ -29,14 +29,15 @@ type StreamAudioApiService service
 /*
 StartStream Play an audio file into a call
 Play an audio file into a call
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param uuid UUID of the Call Leg
- * @param startStreamRequest action to perform
+  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param uuid UUID of the Call Leg
+  - @param startStreamRequest action to perform
+
 @return StartStreamResponse
 */
-func (a *StreamAudioApiService) StartStream(ctx _context.Context, uuid string, startStreamRequest StartStreamRequest) (StartStreamResponse, *_nethttp.Response, error) {
+func (a *StreamAudioApiService) StartStream(ctx context.Context, uuid string, startStreamRequest StartStreamRequest) (StartStreamResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPut
+		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
@@ -46,11 +47,11 @@ func (a *StreamAudioApiService) StartStream(ctx _context.Context, uuid string, s
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/{uuid}/stream"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.QueryEscape(parameterToString(uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.QueryEscape(parameterToString(uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -81,7 +82,7 @@ func (a *StreamAudioApiService) StartStream(ctx _context.Context, uuid string, s
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
@@ -110,13 +111,14 @@ func (a *StreamAudioApiService) StartStream(ctx _context.Context, uuid string, s
 /*
 StopStream Stop playing an audio file into a call
 Stop playing an audio file into a call
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param uuid UUID of the Call Leg
+  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param uuid UUID of the Call Leg
+
 @return StopStreamResponse
 */
-func (a *StreamAudioApiService) StopStream(ctx _context.Context, uuid string) (StopStreamResponse, *_nethttp.Response, error) {
+func (a *StreamAudioApiService) StopStream(ctx context.Context, uuid string) (StopStreamResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
@@ -126,11 +128,11 @@ func (a *StreamAudioApiService) StopStream(ctx _context.Context, uuid string) (S
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/{uuid}/stream"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.QueryEscape(parameterToString(uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.QueryEscape(parameterToString(uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -159,7 +161,7 @@ func (a *StreamAudioApiService) StopStream(ctx _context.Context, uuid string) (S
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err

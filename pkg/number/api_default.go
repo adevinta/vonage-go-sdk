@@ -11,16 +11,17 @@
 package number
 
 import (
-	_context "context"
+	"context"
+	"io"
+	"net/http"
+	"net/url"
+
 	"github.com/antihax/optional"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
 )
 
 // Linger please
 var (
-	_ _context.Context
+	_ context.Context
 )
 
 // DefaultApiService DefaultApi service
@@ -34,16 +35,17 @@ type BuyANumberOpts struct {
 /*
 BuyANumber Buy a number
 Request to purchase a specific inbound number.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param country The two character country code in ISO 3166-1 alpha-2 format
- * @param msisdn An available inbound virtual number.
- * @param optional nil or *BuyANumberOpts - Optional Parameters:
- * @param "TargetApiKey" (optional.String) -  If you’d like to perform an action on a subaccount, provide the `api_key` of that account here. If you’d like to perform an action on your own account, you do not need to provide this field.
+  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param country The two character country code in ISO 3166-1 alpha-2 format
+  - @param msisdn An available inbound virtual number.
+  - @param optional nil or *BuyANumberOpts - Optional Parameters:
+  - @param "TargetApiKey" (optional.String) -  If you’d like to perform an action on a subaccount, provide the `api_key` of that account here. If you’d like to perform an action on your own account, you do not need to provide this field.
+
 @return Response
 */
-func (a *DefaultApiService) BuyANumber(ctx _context.Context, country string, msisdn string, localVarOptionals *BuyANumberOpts) (Response, *_nethttp.Response, error) {
+func (a *DefaultApiService) BuyANumber(ctx context.Context, country string, msisdn string, localVarOptionals *BuyANumberOpts) (Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
@@ -55,8 +57,8 @@ func (a *DefaultApiService) BuyANumber(ctx _context.Context, country string, msi
 	localVarPath := a.client.cfg.BasePath + "/number/buy"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if strlen(country) < 2 {
 		return localVarReturnValue, nil, reportError("country must have at least 2 elements")
 	}
@@ -120,7 +122,7 @@ func (a *DefaultApiService) BuyANumber(ctx _context.Context, country string, msi
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
@@ -164,16 +166,17 @@ type CancelANumberOpts struct {
 /*
 CancelANumber Cancel a number
 Cancel your subscription for a specific inbound number.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param country The two character country code in ISO 3166-1 alpha-2 format
- * @param msisdn An available inbound virtual number.
- * @param optional nil or *CancelANumberOpts - Optional Parameters:
- * @param "TargetApiKey" (optional.String) -  If you’d like to perform an action on a subaccount, provide the `api_key` of that account here. If you’d like to perform an action on your own account, you do not need to provide this field.
+  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param country The two character country code in ISO 3166-1 alpha-2 format
+  - @param msisdn An available inbound virtual number.
+  - @param optional nil or *CancelANumberOpts - Optional Parameters:
+  - @param "TargetApiKey" (optional.String) -  If you’d like to perform an action on a subaccount, provide the `api_key` of that account here. If you’d like to perform an action on your own account, you do not need to provide this field.
+
 @return Response
 */
-func (a *DefaultApiService) CancelANumber(ctx _context.Context, country string, msisdn string, localVarOptionals *CancelANumberOpts) (Response, *_nethttp.Response, error) {
+func (a *DefaultApiService) CancelANumber(ctx context.Context, country string, msisdn string, localVarOptionals *CancelANumberOpts) (Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
@@ -185,8 +188,8 @@ func (a *DefaultApiService) CancelANumber(ctx _context.Context, country string, 
 	localVarPath := a.client.cfg.BasePath + "/number/cancel"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if strlen(country) < 2 {
 		return localVarReturnValue, nil, reportError("country must have at least 2 elements")
 	}
@@ -250,7 +253,7 @@ func (a *DefaultApiService) CancelANumber(ctx _context.Context, country string, 
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
@@ -299,20 +302,21 @@ type GetAvailableNumbersOpts struct {
 /*
 GetAvailableNumbers Search available numbers
 Retrieve inbound numbers that are available for the specified country.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param country The two character country code to filter on (in ISO 3166-1 alpha-2 format)
- * @param optional nil or *GetAvailableNumbersOpts - Optional Parameters:
- * @param "Type_" (optional.String) -  Set this parameter to filter the type of number, such as mobile or landline
- * @param "Pattern" (optional.String) -  The number pattern you want to search for. Use in conjunction with `search_pattern`.
- * @param "SearchPattern" (optional.Int32) -  The strategy you want to use for matching:   * `0` - Search for numbers that start with `pattern` (Note: all numbers are in E.164 format, so the starting pattern includes the country code, such as 1 for USA) * `1` - Search for numbers that contain `pattern` * `2` - Search for numbers that end with `pattern`
- * @param "Features" (optional.String) -  Available features are `SMS`, `VOICE` and `MMS`. To look for numbers that support multiple features, use a comma-separated value: `SMS,MMS,VOICE`.
- * @param "Size" (optional.Int32) -  Page size
- * @param "Index" (optional.Int32) -  Page index
+  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param country The two character country code to filter on (in ISO 3166-1 alpha-2 format)
+  - @param optional nil or *GetAvailableNumbersOpts - Optional Parameters:
+  - @param "Type_" (optional.String) -  Set this parameter to filter the type of number, such as mobile or landline
+  - @param "Pattern" (optional.String) -  The number pattern you want to search for. Use in conjunction with `search_pattern`.
+  - @param "SearchPattern" (optional.Int32) -  The strategy you want to use for matching:   * `0` - Search for numbers that start with `pattern` (Note: all numbers are in E.164 format, so the starting pattern includes the country code, such as 1 for USA) * `1` - Search for numbers that contain `pattern` * `2` - Search for numbers that end with `pattern`
+  - @param "Features" (optional.String) -  Available features are `SMS`, `VOICE` and `MMS`. To look for numbers that support multiple features, use a comma-separated value: `SMS,MMS,VOICE`.
+  - @param "Size" (optional.Int32) -  Page size
+  - @param "Index" (optional.Int32) -  Page index
+
 @return AvailableNumbers
 */
-func (a *DefaultApiService) GetAvailableNumbers(ctx _context.Context, country string, localVarOptionals *GetAvailableNumbersOpts) (AvailableNumbers, *_nethttp.Response, error) {
+func (a *DefaultApiService) GetAvailableNumbers(ctx context.Context, country string, localVarOptionals *GetAvailableNumbersOpts) (AvailableNumbers, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
@@ -324,8 +328,8 @@ func (a *DefaultApiService) GetAvailableNumbers(ctx _context.Context, country st
 	localVarPath := a.client.cfg.BasePath + "/number/search"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if strlen(country) < 2 {
 		return localVarReturnValue, nil, reportError("country must have at least 2 elements")
 	}
@@ -403,7 +407,7 @@ func (a *DefaultApiService) GetAvailableNumbers(ctx _context.Context, country st
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
@@ -453,20 +457,21 @@ type GetOwnedNumbersOpts struct {
 /*
 GetOwnedNumbers List the numbers you own
 Retrieve all the inbound numbers associated with your Nexmo account.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *GetOwnedNumbersOpts - Optional Parameters:
- * @param "ApplicationId" (optional.String) -  The Application that you want to return the numbers for.
- * @param "HasApplication" (optional.Bool) -  Set this optional field to `true` to restrict your results to numbers associated with an Application (any Application). Set to `false` to find all numbers not associated with any Application. Omit the field to avoid filtering on whether or not the number is assigned to an Application.
- * @param "Country" (optional.String) -
- * @param "Pattern" (optional.String) -  The number pattern you want to search for. Use in conjunction with `search_pattern`.
- * @param "SearchPattern" (optional.Int32) -  The strategy you want to use for matching:   * `0` - Search for numbers that start with `pattern` (Note: all numbers are in E.164 format, so the starting pattern includes the country code, such as 1 for USA) * `1` - Search for numbers that contain `pattern` * `2` - Search for numbers that end with `pattern`
- * @param "Size" (optional.Int32) -  Page size
- * @param "Index" (optional.Int32) -  Page index
+  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *GetOwnedNumbersOpts - Optional Parameters:
+  - @param "ApplicationId" (optional.String) -  The Application that you want to return the numbers for.
+  - @param "HasApplication" (optional.Bool) -  Set this optional field to `true` to restrict your results to numbers associated with an Application (any Application). Set to `false` to find all numbers not associated with any Application. Omit the field to avoid filtering on whether or not the number is assigned to an Application.
+  - @param "Country" (optional.String) -
+  - @param "Pattern" (optional.String) -  The number pattern you want to search for. Use in conjunction with `search_pattern`.
+  - @param "SearchPattern" (optional.Int32) -  The strategy you want to use for matching:   * `0` - Search for numbers that start with `pattern` (Note: all numbers are in E.164 format, so the starting pattern includes the country code, such as 1 for USA) * `1` - Search for numbers that contain `pattern` * `2` - Search for numbers that end with `pattern`
+  - @param "Size" (optional.Int32) -  Page size
+  - @param "Index" (optional.Int32) -  Page index
+
 @return InboundNumbers
 */
-func (a *DefaultApiService) GetOwnedNumbers(ctx _context.Context, localVarOptionals *GetOwnedNumbersOpts) (InboundNumbers, *_nethttp.Response, error) {
+func (a *DefaultApiService) GetOwnedNumbers(ctx context.Context, localVarOptionals *GetOwnedNumbersOpts) (InboundNumbers, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
@@ -478,8 +483,8 @@ func (a *DefaultApiService) GetOwnedNumbers(ctx _context.Context, localVarOption
 	localVarPath := a.client.cfg.BasePath + "/account/numbers"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if localVarOptionals != nil && localVarOptionals.ApplicationId.IsSet() {
 		localVarQueryParams.Add("application_id", parameterToString(localVarOptionals.ApplicationId.Value(), ""))
@@ -553,7 +558,7 @@ func (a *DefaultApiService) GetOwnedNumbers(ctx _context.Context, localVarOption
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
@@ -613,23 +618,24 @@ type UpdateANumberOpts struct {
 /*
 UpdateANumber Update a number
 Change the behaviour of a number that you own.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param country The two character country code in ISO 3166-1 alpha-2 format
- * @param msisdn An available inbound virtual number.
- * @param optional nil or *UpdateANumberOpts - Optional Parameters:
- * @param "AppId" (optional.String) -  The Application that will handle inbound traffic to this number.
- * @param "MoHttpUrl" (optional.String) -  An URL-encoded URI to the webhook endpoint that handles inbound messages. Your webhook endpoint must be active before you make this request. Nexmo makes a `GET` request to the endpoint and checks that it returns a `200 OK` response. Set this parameter's value to an empty string to remove the webhook.
- * @param "MoSmppSysType" (optional.String) -  The associated system type for your SMPP client
- * @param "VoiceCallbackType" (optional.String) -  Specify whether inbound voice calls on your number are forwarded to a SIP or a telephone number.  This must be used with the `voiceCallbackValue` parameter. If set, `sip` or `tel` are prioritized over the Voice capability in your Application.  *Note: The `app` value is deprecated and will be removed in future.*
- * @param "VoiceCallbackValue" (optional.String) -  A SIP URI or telephone number. Must be used with the `voiceCallbackType` parameter.
- * @param "VoiceStatusCallback" (optional.String) -  A webhook URI for Nexmo to send a request to when a call ends
- * @param "MessagesCallbackType" (optional.String) -  <strong>DEPRECATED</strong> - We recommend that you use `app_id` instead.  Specifies the Messages webhook type (always `app`) associated with this number and must be used with the `messagesCallbackValue` parameter.
- * @param "MessagesCallbackValue" (optional.String) -  <strong>DEPRECATED</strong> - We recommend that you use `app_id` instead.  Specifies the Application ID of your Messages application. It must be used with the `messagesCallbackType` parameter.
+  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param country The two character country code in ISO 3166-1 alpha-2 format
+  - @param msisdn An available inbound virtual number.
+  - @param optional nil or *UpdateANumberOpts - Optional Parameters:
+  - @param "AppId" (optional.String) -  The Application that will handle inbound traffic to this number.
+  - @param "MoHttpUrl" (optional.String) -  An URL-encoded URI to the webhook endpoint that handles inbound messages. Your webhook endpoint must be active before you make this request. Nexmo makes a `GET` request to the endpoint and checks that it returns a `200 OK` response. Set this parameter's value to an empty string to remove the webhook.
+  - @param "MoSmppSysType" (optional.String) -  The associated system type for your SMPP client
+  - @param "VoiceCallbackType" (optional.String) -  Specify whether inbound voice calls on your number are forwarded to a SIP or a telephone number.  This must be used with the `voiceCallbackValue` parameter. If set, `sip` or `tel` are prioritized over the Voice capability in your Application.  *Note: The `app` value is deprecated and will be removed in future.*
+  - @param "VoiceCallbackValue" (optional.String) -  A SIP URI or telephone number. Must be used with the `voiceCallbackType` parameter.
+  - @param "VoiceStatusCallback" (optional.String) -  A webhook URI for Nexmo to send a request to when a call ends
+  - @param "MessagesCallbackType" (optional.String) -  <strong>DEPRECATED</strong> - We recommend that you use `app_id` instead.  Specifies the Messages webhook type (always `app`) associated with this number and must be used with the `messagesCallbackValue` parameter.
+  - @param "MessagesCallbackValue" (optional.String) -  <strong>DEPRECATED</strong> - We recommend that you use `app_id` instead.  Specifies the Application ID of your Messages application. It must be used with the `messagesCallbackType` parameter.
+
 @return Response
 */
-func (a *DefaultApiService) UpdateANumber(ctx _context.Context, country string, msisdn string, localVarOptionals *UpdateANumberOpts) (Response, *_nethttp.Response, error) {
+func (a *DefaultApiService) UpdateANumber(ctx context.Context, country string, msisdn string, localVarOptionals *UpdateANumberOpts) (Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
@@ -641,8 +647,8 @@ func (a *DefaultApiService) UpdateANumber(ctx _context.Context, country string, 
 	localVarPath := a.client.cfg.BasePath + "/number/update"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if strlen(country) < 2 {
 		return localVarReturnValue, nil, reportError("country must have at least 2 elements")
 	}
@@ -727,7 +733,7 @@ func (a *DefaultApiService) UpdateANumber(ctx _context.Context, country string, 
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err

@@ -1,7 +1,7 @@
 package jwt
 
 import (
-	"io/ioutil"
+	"os"
 	"time"
 
 	"github.com/golang-jwt/jwt"
@@ -35,7 +35,7 @@ func NewGenerator(ApplicationID string, PrivateKey []byte) *Generator {
 
 // NewGeneratorFromFilename takes your application ID and the filename of your private key to create a token generator
 func NewGeneratorFromFilename(ApplicationID string, PrivateKeyFileName string) (*Generator, error) {
-	key, err := ioutil.ReadFile(PrivateKeyFileName)
+	key, err := os.ReadFile(PrivateKeyFileName)
 	if err != nil {
 		return &Generator{}, err
 	}

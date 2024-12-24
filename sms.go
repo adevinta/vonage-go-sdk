@@ -3,10 +3,10 @@ package vonage
 import (
 	"context"
 	"encoding/json"
-	"io/ioutil"
+	"io"
 
+	"github.com/adevinta/vonage-go-sdk/pkg/sms"
 	"github.com/antihax/optional"
-	"github.com/vonage/vonage-go-sdk/pkg/sms"
 )
 
 // SMSClient for working with the SMS API
@@ -93,7 +93,7 @@ func (client *SMSClient) Send(from string, to string, text string, opts SMSOpts)
 
 	// now worry about the status code in the response
 	if result.Messages[0].Status != "0" {
-		data, _ := ioutil.ReadAll(resp.Body)
+		data, _ := io.ReadAll(resp.Body)
 
 		var errResp SmsErrorResponse
 		jsonErr := json.Unmarshal(data, &errResp)

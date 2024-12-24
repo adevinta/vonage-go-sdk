@@ -3,8 +3,8 @@ package vonage
 import (
 	"context"
 
+	"github.com/adevinta/vonage-go-sdk/pkg/numberinsight"
 	"github.com/antihax/optional"
-	"github.com/vonage/vonage-go-sdk/pkg/numberinsight"
 )
 
 // NumberInsightClient for working with the NumberInsight API

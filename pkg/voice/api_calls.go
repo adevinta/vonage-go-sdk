@@ -11,10 +11,10 @@
 package voice
 
 import (
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io"
+	"net/http"
+	"net/url"
 	"strings"
 
 	"github.com/antihax/optional"
@@ -22,7 +22,7 @@ import (
 
 // Linger please
 var (
-	_ _context.Context
+	_ context.Context
 )
 
 // CallsApiService CallsApi service
@@ -36,14 +36,15 @@ type CreateCallOpts struct {
 /*
 CreateCall Create an outbound call
 Create an outbound Call
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *CreateCallOpts - Optional Parameters:
- * @param "UNKNOWNBASETYPE" (optional.Interface of UNKNOWN_BASE_TYPE) -  Call Details
+  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *CreateCallOpts - Optional Parameters:
+  - @param "UNKNOWNBASETYPE" (optional.Interface of UNKNOWN_BASE_TYPE) -  Call Details
+
 @return CreateCallResponse
 */
-func (a *CallsApiService) CreateCall(ctx _context.Context, localVarOptionals *CreateCallOpts) (CreateCallResponse, *_nethttp.Response, error) {
+func (a *CallsApiService) CreateCall(ctx context.Context, localVarOptionals *CreateCallOpts) (CreateCallResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
@@ -54,8 +55,8 @@ func (a *CallsApiService) CreateCall(ctx _context.Context, localVarOptionals *Cr
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/"
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -87,7 +88,7 @@ func (a *CallsApiService) CreateCall(ctx _context.Context, localVarOptionals *Cr
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
@@ -116,13 +117,14 @@ func (a *CallsApiService) CreateCall(ctx _context.Context, localVarOptionals *Cr
 /*
 GetCall Get detail of a specific call
 Get detail of a specific call
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param uuid UUID of the Call
+  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param uuid UUID of the Call
+
 @return GetCallResponse
 */
-func (a *CallsApiService) GetCall(ctx _context.Context, uuid string) (GetCallResponse, *_nethttp.Response, error) {
+func (a *CallsApiService) GetCall(ctx context.Context, uuid string) (GetCallResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
@@ -132,11 +134,11 @@ func (a *CallsApiService) GetCall(ctx _context.Context, uuid string) (GetCallRes
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.QueryEscape(parameterToString(uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.QueryEscape(parameterToString(uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -165,7 +167,7 @@ func (a *CallsApiService) GetCall(ctx _context.Context, uuid string) (GetCallRes
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
@@ -205,20 +207,21 @@ type GetCallsOpts struct {
 /*
 GetCalls Get details of your calls
 Get details of your calls
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *GetCallsOpts - Optional Parameters:
- * @param "Status" (optional.String) -  Filter by call status
- * @param "DateStart" (optional.Time) -  Return the records that occurred after this point in time
- * @param "DateEnd" (optional.Time) -  Return the records that occurred before this point in time
- * @param "PageSize" (optional.Int32) -  Return this amount of records in the response
- * @param "RecordIndex" (optional.Int32) -  Return calls from this index in the response
- * @param "Order" (optional.String) -  Either ascending or  descending order.
- * @param "ConversationUuid" (optional.Interface of string) -  Return all the records associated with a specific conversation.
+  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param optional nil or *GetCallsOpts - Optional Parameters:
+  - @param "Status" (optional.String) -  Filter by call status
+  - @param "DateStart" (optional.Time) -  Return the records that occurred after this point in time
+  - @param "DateEnd" (optional.Time) -  Return the records that occurred before this point in time
+  - @param "PageSize" (optional.Int32) -  Return this amount of records in the response
+  - @param "RecordIndex" (optional.Int32) -  Return calls from this index in the response
+  - @param "Order" (optional.String) -  Either ascending or  descending order.
+  - @param "ConversationUuid" (optional.Interface of string) -  Return all the records associated with a specific conversation.
+
 @return GetCallsResponse
 */
-func (a *CallsApiService) GetCalls(ctx _context.Context, localVarOptionals *GetCallsOpts) (GetCallsResponse, *_nethttp.Response, error) {
+func (a *CallsApiService) GetCalls(ctx context.Context, localVarOptionals *GetCallsOpts) (GetCallsResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
@@ -229,8 +232,8 @@ func (a *CallsApiService) GetCalls(ctx _context.Context, localVarOptionals *GetC
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/"
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if localVarOptionals != nil && localVarOptionals.Status.IsSet() {
 		localVarQueryParams.Add("status", parameterToString(localVarOptionals.Status.Value(), ""))
@@ -280,7 +283,7 @@ func (a *CallsApiService) GetCalls(ctx _context.Context, localVarOptionals *GetC
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
@@ -314,13 +317,13 @@ type ModifyCallOpts struct {
 /*
 UpdateCall Modify an in progress call
 Modify an in progress call
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param uuid UUID of the Call
- * @param uNKNOWNBASETYPE
+  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param uuid UUID of the Call
+  - @param uNKNOWNBASETYPE
 */
-func (a *CallsApiService) UpdateCall(ctx _context.Context, uuid string, localVarOptionals *ModifyCallOpts) (*_nethttp.Response, error) {
+func (a *CallsApiService) UpdateCall(ctx context.Context, uuid string, localVarOptionals *ModifyCallOpts) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPut
+		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
@@ -329,11 +332,11 @@ func (a *CallsApiService) UpdateCall(ctx _context.Context, uuid string, localVar
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.QueryEscape(parameterToString(uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.QueryEscape(parameterToString(uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -364,7 +367,7 @@ func (a *CallsApiService) UpdateCall(ctx _context.Context, uuid string, localVar
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	if err != nil {
 		return localVarHTTPResponse, err

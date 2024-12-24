@@ -4,8 +4,8 @@ import (
 	"context"
 	"encoding/json"
 
+	"github.com/adevinta/vonage-go-sdk/pkg/number"
 	"github.com/antihax/optional"
-	"github.com/vonage/vonage-go-sdk/pkg/number"
 )
 
 // NumbersClient for working with the Numbers API
