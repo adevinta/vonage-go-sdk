@@ -15,6 +15,6 @@ require (
 	github.com/golang/protobuf v1.3.1 // indirect
 	github.com/inconshreveable/mousetrap v1.0.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
-	golang.org/x/net v0.0.0-20190522155817-f3200d17e092 // indirect
+	golang.org/x/net v0.33.0 // indirect
 	google.golang.org/appengine v1.4.0 // indirect
 )
